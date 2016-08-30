@@ -32,37 +32,45 @@ public class MainActivity extends BaseActivity implements HBottomTabBar.HBottomT
             R.drawable.tab_mypage_normal};
     private String [] textList = {"理发","仓库","明细","会员"};
 
+    private final int DEFAULT = 0;
+
+    private int curIndex = DEFAULT;
+
     private MainSwitchHelper helper;
 
     @ViewInject(R.id.main_tab)
     private HBottomTabBar tabbar;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void init() {
+        setBody(R.layout.activity_main);
         helper = MainSwitchHelper.getInstance(this);
-        ViewUtils.inject(this);
         initTab();
         initView();
     }
 
     private void initView() {
-        helper.open(this, 0);
+        switchPager(DEFAULT);
     }
 
     private void initTab() {
         tabbar.setTitle(textList);
-        tabbar.setBackgroundColor(getResources().getColor(R.color.xiunaer));
+        tabbar.setBackgroundColor(getResources().getColor(R.color.theme_color));
         tabbar.setIcons(mNormalIcons, mSelectIcons);
         tabbar.setHTabBarSelectedListener(this);
     }
 
     @Override
     public void onBottomTabBarSelected(View v, int index) {
-//        DatabaseContext dbContext = new DatabaseContext(this);
-//        AiniDatabaseHelper dbHelper = new AiniDatabaseHelper(dbContext);
-//        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        helper.open(this, index);
+
+        switchPager(index);
+    }
+
+    private void switchPager(int index) {
+        curIndex = index;
+        setLeftButtonGone();
+        setTopTitle(textList[curIndex]);
+        helper.open(this, curIndex);
     }
 }

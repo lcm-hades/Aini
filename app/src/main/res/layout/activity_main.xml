@@ -4,12 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/top_bar_height"
-        android:background="@color/xiunaer"
-        android:id="@+id/top"></RelativeLayout>
-
 
     <FrameLayout
         android:layout_width="match_parent"

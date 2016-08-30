@@ -1,9 +1,40 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.hades.aini.BaseActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:id="@+id/top_rl"
+        android:background="@color/theme_color">
+        <ImageView
+            android:id="@+id/top_left_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="0dip"
+            android:paddingLeft="12dip"
+            android:paddingRight="12dip"
+            android:paddingTop="0dip"
+            android:src="@drawable/return_white"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主页"
+            android:textSize="@dimen/big_text_size"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:id="@+id/top_title_tv"/>
+    </RelativeLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/body_ll"></LinearLayout>
+
+</LinearLayout>

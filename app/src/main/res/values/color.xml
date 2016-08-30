@@ -158,4 +158,8 @@
     <color name="lgtblack">#55000000</color>
     <color name="top_color">#fffafafa</color>
     <color name="a6">#ffaaaaaa</color>
+
+
+    <color name="top_text_color">@color/white</color>
+    <color name="theme_color">#11eeee</color>
 </resources>

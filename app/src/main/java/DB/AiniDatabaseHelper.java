@@ -13,7 +13,20 @@ public class AiniDatabaseHelper extends SQLiteOpenHelper {
 
     private static final int version = 1;
 
-    public AiniDatabaseHelper(Context context) {
+    private static AiniDatabaseHelper instance = null;
+
+    public static AiniDatabaseHelper getInstance(Context context){
+        if (instance == null){
+            synchronized (AiniDatabaseHelper.class){
+                if (instance == null){
+                    instance = new AiniDatabaseHelper(context);
+                }
+            }
+        }
+        return instance;
+    }
+
+    private AiniDatabaseHelper(Context context) {
         super(context, DB_NAME, null, version);
     }
 
@@ -34,11 +47,11 @@ public class AiniDatabaseHelper extends SQLiteOpenHelper {
                 "remark varchar(20))"); // 备注
 
         // 类型表 例如：理发，染发
-        db.execSQL("CREATE TABLE IF NOT EXISTS type(id integer primary key autoincrement," + // 类型id
+        db.execSQL("CREATE TABLE IF NOT EXISTS cut_type(id integer primary key autoincrement," + // 类型id
                 " name varchar(20))"); // 类型名
 
         // 账目明细
-        db.execSQL("CREATE TABLE IF NOT EXISTS storage(id integer primary key autoincrement, " + // 账目id
+        db.execSQL("CREATE TABLE IF NOT EXISTS bill_detail(id integer primary key autoincrement, " + // 账目id
                 "typeid INTEGER, " + // 类型id
                 "time INTEGER, " + //操作时间
                 "money FLOAT," +  // 钱
@@ -46,7 +59,7 @@ public class AiniDatabaseHelper extends SQLiteOpenHelper {
                 "vipid INTEGER)"); // 会员id
 
         // 会员信息表
-        db.execSQL("CREATE TABLE IF NOT EXISTS type(id integer primary key autoincrement," + // 类型id
+        db.execSQL("CREATE TABLE IF NOT EXISTS vip_info(id integer primary key autoincrement," + // 类型id
                 " name varchar(20)," + // 会员名
                 " tel varchar(15))"); // 电话
     }
