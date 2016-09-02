@@ -8,17 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hades.aini.R;
+import com.hades.aini.main.BaseFragment;
 
 /**
  * Created by Hades on 2016/8/29.
  */
-public class StorageFragment extends Fragment {
+public class StorageFragment extends BaseFragment {
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = View.inflate(getActivity(), R.layout.fg_storage_layout, null);
-
-        return v;
+    protected void init() {
+        setBody(R.layout.fg_storage_layout);
+        setTopTitle("仓库");
     }
 }

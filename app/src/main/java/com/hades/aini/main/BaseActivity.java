@@ -1,4 +1,4 @@
-package com.hades.aini;
+package com.hades.aini.main;
 
 import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hades.aini.R;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 

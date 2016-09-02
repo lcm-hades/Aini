@@ -32,7 +32,7 @@ public class DatabaseContext extends ContextWrapper {
         else{//如果存在
             //获取sd卡路径
             String dbDir=android.os.Environment.getExternalStorageDirectory().toString();
-            dbDir += "/aini";//数据库所在目录
+            dbDir += "/aini/db";//数据库所在目录
             String dbPath = dbDir+"/"+name;//数据库路径
             //判断目录是否存在，不存在则创建该目录
             File dirFile = new File(dbDir);

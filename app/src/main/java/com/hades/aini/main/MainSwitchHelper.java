@@ -1,4 +1,4 @@
-package com.hades.aini;
+package com.hades.aini.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -6,10 +6,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.SparseArrayCompat;
 
+import com.hades.aini.R;
 import com.hades.aini.detail.DetailFragment;
 import com.hades.aini.haircut.HairCutFragment;
 import com.hades.aini.storage.StorageFragment;
-import com.hades.aini.vip.View.VipFragmet;
+import com.hades.aini.vip.widget.VipFragmet;
 
 /**
  * Created by Hades on 2016/8/29.

@@ -10,6 +10,7 @@ public class VipInfoBean implements Serializable {
     private int id;
     private String name;
     private String tel;
+    private Long time;
 
     public String getTel() {
         return tel;
@@ -36,6 +37,11 @@ public class VipInfoBean implements Serializable {
     }
 
 
+    public Long getTime() {
+        return time;
+    }
 
-
+    public void setTime(Long time) {
+        this.time = time;
+    }
 }

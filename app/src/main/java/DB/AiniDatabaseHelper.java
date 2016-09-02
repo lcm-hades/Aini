@@ -61,7 +61,8 @@ public class AiniDatabaseHelper extends SQLiteOpenHelper {
         // 会员信息表
         db.execSQL("CREATE TABLE IF NOT EXISTS vip_info(id integer primary key autoincrement," + // 类型id
                 " name varchar(20)," + // 会员名
-                " tel varchar(15))"); // 电话
+                " tel varchar(15)," +  // 电话
+                " time INTEGER)");     // 建立会员时间
     }
 
     @Override

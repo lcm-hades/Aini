@@ -1,26 +1,17 @@
-package com.hades.aini;
+package com.hades.aini.main;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.PersistableBundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
-import com.hades.aini.haircut.HairCutFragment;
+import com.hades.aini.R;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import DB.AiniDatabaseHelper;
-import DB.DatabaseContext;
 import HTabBar.HBottomTabBar;
 
-public class MainActivity extends BaseActivity implements HBottomTabBar.HBottomTabBarSelectedListener {
+public class MainActivity extends FragmentActivity implements HBottomTabBar.HBottomTabBarSelectedListener {
 
     private int[] mNormalIcons = {R.drawable.tab_mypage_normal,
             R.drawable.tab_mypage_normal,
@@ -41,13 +32,17 @@ public class MainActivity extends BaseActivity implements HBottomTabBar.HBottomT
     @ViewInject(R.id.main_tab)
     private HBottomTabBar tabbar;
 
+
     @Override
-    protected void init() {
-        setBody(R.layout.activity_main);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ViewUtils.inject(this);
         helper = MainSwitchHelper.getInstance(this);
         initTab();
         initView();
     }
+
 
     private void initView() {
         switchPager(DEFAULT);
@@ -62,15 +57,11 @@ public class MainActivity extends BaseActivity implements HBottomTabBar.HBottomT
 
     @Override
     public void onBottomTabBarSelected(View v, int index) {
-
-
         switchPager(index);
     }
 
     private void switchPager(int index) {
         curIndex = index;
-        setLeftButtonGone();
-        setTopTitle(textList[curIndex]);
         helper.open(this, curIndex);
     }
 }
