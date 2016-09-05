@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:paddingLeft="@dimen/padding_left"
+    android:paddingRight="@dimen/padding_right"
+    android:paddingTop="@dimen/padding_top"
+    android:paddingBottom="@dimen/padding_bottom"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/mid_text_size"
+        android:text="name"
+        android:id="@+id/name_tv"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="time"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/time_tv"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tel"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/tel_tv"/>
+
+</RelativeLayout>

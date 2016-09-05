@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/padding_top"
+    android:paddingLeft="@dimen/padding_left"
+    android:paddingRight="@dimen/padding_right">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widget_height"
+        android:id="@+id/vip_name"
+        android:hint="请输入姓名"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widget_height"
+        android:layout_marginTop="@dimen/margin_top"
+        android:id="@+id/vip_tel"
+        android:hint="请输入手机号"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widget_height"
+        android:layout_marginTop="@dimen/margin_top"
+        android:text="添加会员"
+        android:id="@+id/vip_add_btn"/>
+</LinearLayout>
