@@ -24,6 +24,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     private TextView top_title_tv;
     private LinearLayout body_ll;
     private ViewStub waiting_vs;
+    private View mLoadingView;
 
     protected abstract void init();
 
@@ -78,9 +79,18 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     protected void setLoadingVisible(int visible){
         if (visible == View.VISIBLE){
             body_ll.setVisibility(View.GONE);
+            if (mLoadingView == null){
+                mLoadingView = waiting_vs.inflate();
+            }else {
+                mLoadingView.setVisibility(visible);
+            }
+
         }else {
             body_ll.setVisibility(View.VISIBLE);
+            if (mLoadingView != null){
+                mLoadingView.setVisibility(visible);
+            }
         }
-        waiting_vs.setVisibility(visible);
+
     }
 }
