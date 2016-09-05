@@ -10,6 +10,7 @@ import com.hades.aini.vip.bean.VipInfoBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import DB.AiniDatabaseHelper;
 import DB.DatabaseContext;
@@ -27,7 +28,7 @@ public class VipModelImpl implements VipModel {
         dbHelper = AiniDatabaseHelper.getInstance(dbContext);
     }
 
-    public int getIDByTel(String tel){
+    public synchronized int getIDByTel(String tel){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String sql = "select id from vip_info where tel = " + tel;
         Cursor cursor = db.rawQuery(sql, null);
@@ -39,12 +40,19 @@ public class VipModelImpl implements VipModel {
     }
 
     @Override
-    public void insertVipInfo(VipInfoBean vip) {
+    public synchronized void insertVipInfo(VipInfoBean vip, OnVipInfoChangeListener listener) {
         SQLiteDatabase db = null;
         try {
             db = dbHelper.getWritableDatabase();
             String sql = "insert into vip_info(name, tel, time)" + "values(?, ?, ?)";
             db.execSQL(sql, new Object[]{vip.getName(), vip.getTel(), TimeUtils.getCurStamp()});
+
+            String sq = "SELECT last_insert_rowid()";
+            Cursor cursor = db.rawQuery(sq, null);
+            cursor.moveToFirst();
+            vip.setId(cursor.getInt(0));
+            listener.onSuccess(vip);
+
         }catch (Exception e){
             if (this.listener != null){
                 listener.onFailure("insert failure", e);
@@ -57,7 +65,7 @@ public class VipModelImpl implements VipModel {
     }
 
     @Override
-    public void updateVipInfo(int id) {
+    public synchronized void updateVipInfo(int id) {
         SQLiteDatabase db = null;
         try {
             db = dbHelper.getWritableDatabase();
@@ -73,7 +81,7 @@ public class VipModelImpl implements VipModel {
     }
 
     @Override
-    public void deleteVipInfo(int id) {
+    public synchronized void deleteVipInfo(int id) {
         SQLiteDatabase db = null;
         try {
             db = dbHelper.getWritableDatabase();
@@ -89,7 +97,7 @@ public class VipModelImpl implements VipModel {
     }
 
     @Override
-    public boolean isExist(String tel) {
+    public synchronized boolean isExist(String tel) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String sql = "select id from vip_info where tel = ?";
         Cursor cursor = db.rawQuery(sql, new String[]{tel});

@@ -1,9 +1,8 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.hades.aini.main.BaseActivity">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -39,6 +38,7 @@
             android:layout_centerVertical="true"
             android:text="添加会员"
             android:textColor="@color/white"
+            android:visibility="gone"
             android:layout_marginRight="@dimen/margin_right"
             android:textSize="@dimen/mid_text_size"/>
     </RelativeLayout>
@@ -47,6 +47,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_below="@+id/top_rl"
         android:id="@+id/body_ll"></LinearLayout>
 
-</LinearLayout>
+    <ViewStub
+        android:id="@+id/waiting_vs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_rl"
+        android:layout_centerInParent="true"
+        android:layout="@layout/loading_layout"/>
+
+</RelativeLayout>

@@ -21,4 +21,9 @@ public class HairCutFragment extends BaseFragment {
         setBody(R.layout.fg_haircut_layout);
         setTopTitle("理发");
     }
+
+    @Override
+    protected void onRightButtonClick(View v) {
+
+    }
 }

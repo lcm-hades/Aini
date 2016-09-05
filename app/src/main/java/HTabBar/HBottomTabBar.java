@@ -107,4 +107,5 @@ public class HBottomTabBar extends LinearLayout implements View.OnClickListener 
     public void setHTabBarSelectedListener(HBottomTabBarSelectedListener listener){
         this.listener = listener;
     }
+
 }

@@ -20,4 +20,8 @@ public class DetailFragment extends BaseFragment {
         setTopTitle("明细");
     }
 
+    @Override
+    protected void onRightButtonClick(View v) {
+
+    }
 }

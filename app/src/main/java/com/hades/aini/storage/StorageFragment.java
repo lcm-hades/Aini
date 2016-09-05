@@ -21,4 +21,9 @@ public class StorageFragment extends BaseFragment {
         setBody(R.layout.fg_storage_layout);
         setTopTitle("仓库");
     }
+
+    @Override
+    protected void onRightButtonClick(View v) {
+
+    }
 }

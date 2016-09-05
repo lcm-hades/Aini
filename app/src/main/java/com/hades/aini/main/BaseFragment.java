@@ -3,6 +3,7 @@ package com.hades.aini.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     private TextView right_btn;
 
     protected abstract void init();
+    protected abstract void onRightButtonClick(View v);
 
     @Nullable
     @Override
@@ -84,7 +86,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.right_btn:
-
+                onRightButtonClick(v);
             break;
         }
     }

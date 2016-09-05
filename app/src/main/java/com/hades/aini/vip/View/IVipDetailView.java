@@ -12,4 +12,5 @@ public interface IVipDetailView {
     void update(VipInfoBean vipInfoBean);
     void showProgress();
     void hideProgress();
+    void onFailure(String msg, Exception e);
 }

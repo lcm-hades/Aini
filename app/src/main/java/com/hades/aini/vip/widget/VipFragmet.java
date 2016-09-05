@@ -22,7 +22,7 @@ import Utils.IntentUtils;
 /**
  * Created by Hades on 2016/8/29.
  */
-public class VipFragmet extends BaseFragment implements IVipLoadView, VipFragAdapter.OnVipFragAdapterItemClickLitsener {
+public class VipFragmet extends BaseFragment implements IVipLoadView, VipFragAdapter.OnVipFragAdapterItemClickLitsener, SwipeRefreshLayout.OnRefreshListener {
 
     @ViewInject(R.id.swipeRefreshLayout)
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -38,12 +38,27 @@ public class VipFragmet extends BaseFragment implements IVipLoadView, VipFragAda
 
     public static final String DATA = "data";
 
+    VipLoadPresenterImpl mPresnter;
+
     @Override
     protected void init() {
         setBody(R.layout.fg_vip_layout);
         setTopTitle("会员");
-        VipLoadPresenterImpl presnter = new VipLoadPresenterImpl(this);
-        presnter.loadVipInfo();
+        setRightButtonVisible();
+
+        mPresnter = new VipLoadPresenterImpl(this);
+        mPresnter.loadVipInfo();
+
+        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.green, R.color.blue);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+
+        recyclerView_rv.setHasFixedSize(true);
+        recyclerView_rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView_rv.setItemAnimator(new DefaultItemAnimator());
+        recyclerView_rv.addItemDecoration(
+                new DividerItemDecoration(getActivity(),
+                        DividerItemDecoration.VERTICAL_LIST));
     }
 
     @Override
@@ -53,12 +68,6 @@ public class VipFragmet extends BaseFragment implements IVipLoadView, VipFragAda
         }
         mVipBeanList.clear();
         mVipBeanList.addAll(list);
-        recyclerView_rv.setHasFixedSize(true);
-        recyclerView_rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView_rv.setItemAnimator(new DefaultItemAnimator());
-        recyclerView_rv.addItemDecoration(
-                new DividerItemDecoration(getActivity(),
-                        DividerItemDecoration.VERTICAL_LIST));
         VipFragAdapter adt = new VipFragAdapter(getActivity(), list);
         adt.setOnVipFragAdapterItemClickLitsener(this);
         recyclerView_rv.setAdapter(adt);
@@ -66,17 +75,28 @@ public class VipFragmet extends BaseFragment implements IVipLoadView, VipFragAda
 
     @Override
     public void showProgress() {
-
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void hideProgress() {
 
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onItemClick(View v, int positin) {
         VipInfoBean vip = mVipBeanList.get(positin);
         IntentUtils.skip(getActivity(), VipDetailActivity.class, DATA, vip, Source, Update,  false);
+    }
+
+    @Override
+    protected void onRightButtonClick(View v) {
+        IntentUtils.skip(getActivity(), VipDetailActivity.class, Source, Insert,  false);
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresnter.loadVipInfo();
     }
 }

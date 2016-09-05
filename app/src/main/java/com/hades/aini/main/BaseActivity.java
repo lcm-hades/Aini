@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,6 +23,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     private ImageView top_left_iv;
     private TextView top_title_tv;
     private LinearLayout body_ll;
+    private ViewStub waiting_vs;
 
     protected abstract void init();
 
@@ -42,6 +44,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         mTopRL = (RelativeLayout) findViewById(R.id.top_rl);
         top_left_iv = (ImageView) findViewById(R.id.top_left_iv);
         top_left_iv.setOnClickListener(this);
+        waiting_vs = (ViewStub) findViewById(R.id.waiting_vs);
     }
 
     protected void setTopTitle(String title){
@@ -70,5 +73,14 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
                 finish();
                 break;
         }
+    }
+
+    protected void setLoadingVisible(int visible){
+        if (visible == View.VISIBLE){
+            body_ll.setVisibility(View.GONE);
+        }else {
+            body_ll.setVisibility(View.VISIBLE);
+        }
+        waiting_vs.setVisibility(visible);
     }
 }

@@ -1,8 +1,11 @@
 package com.hades.aini.vip.widget;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.hades.aini.main.BaseActivity;
 import com.hades.aini.R;
@@ -33,8 +36,15 @@ public class VipDetailActivity extends BaseActivity implements IVipDetailView{
     protected void init() {
         setBody(R.layout.ac_vip_detail_layout);
         mSource = (int) getIntent().getSerializableExtra(VipFragmet.Source);
-        mVipInfoBean = (VipInfoBean) getIntent().getSerializableExtra(VipFragmet.DATA);
+        if(mSource == VipFragmet.Update){
+            mVipInfoBean = (VipInfoBean) getIntent().getSerializableExtra(VipFragmet.DATA);
+            setUI(mVipInfoBean);
+        }
         vipDetailPresenter = new VipDetailPresenterImpl(this);
+    }
+
+    private void setUI(VipInfoBean vipInfoBean) {
+
     }
 
     @OnClick(R.id.vip_add_btn)
@@ -58,11 +68,18 @@ public class VipDetailActivity extends BaseActivity implements IVipDetailView{
 
     @Override
     public void showProgress() {
-
+        Log.i("test", "showProgress");
+        setLoadingVisible(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
+        Log.i("test", "hideProgress");
+        setLoadingVisible(View.GONE);
+    }
 
+    @Override
+    public void onFailure(String msg, Exception e) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

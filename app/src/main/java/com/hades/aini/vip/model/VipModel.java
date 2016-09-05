@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Hades on 2016/8/30.
  */
 public interface VipModel {
-    void insertVipInfo(VipInfoBean vip);
+    void insertVipInfo(VipInfoBean vip, VipModelImpl.OnVipInfoChangeListener listener);
     void updateVipInfo(int id);
     void deleteVipInfo(int id);
     void getVipInfoList(VipModelImpl.OnLoadVipInfoListener listener);
