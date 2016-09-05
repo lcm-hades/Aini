@@ -32,9 +32,8 @@ public class LoadingView extends ImageView {
 
 
     private void init(Context context){
-        ImageView imageView = new ImageView(context);
-        imageView.setBackgroundResource(R.drawable.progress_round);
-        AnimationDrawable animationDrawable = (AnimationDrawable) imageView.getBackground();
+
+        AnimationDrawable animationDrawable = (AnimationDrawable) getBackground();
         animationDrawable.start();
     }
 }

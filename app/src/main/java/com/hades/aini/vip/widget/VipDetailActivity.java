@@ -75,7 +75,7 @@ public class VipDetailActivity extends BaseActivity implements IVipDetailView{
     @Override
     public void hideProgress() {
         Log.i("test", "hideProgress");
-        // setLoadingVisible(View.GONE);
+        setLoadingVisible(View.GONE);
     }
 
     @Override

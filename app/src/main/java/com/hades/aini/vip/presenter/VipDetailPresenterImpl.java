@@ -1,7 +1,6 @@
 package com.hades.aini.vip.presenter;
-
-import android.content.Context;
-
+import com.hades.aini.R;
+import com.hades.aini.main.AiniApplication;
 import com.hades.aini.vip.View.IVipDetailView;
 import com.hades.aini.vip.bean.VipInfoBean;
 import com.hades.aini.vip.model.VipModel;
@@ -21,7 +20,6 @@ public class VipDetailPresenterImpl implements VipDetailPresenter, VipModelImpl.
         mIVipDetailView = iVipDetailView;
     }
 
-
     @Override
     public void addNewVip(String name, String tel) {
         mIVipDetailView.showProgress();
@@ -32,6 +30,8 @@ public class VipDetailPresenterImpl implements VipDetailPresenter, VipModelImpl.
             vipModel.insertVipInfo(vip, this);
         }else {
             // mIVipDetailView
+            mIVipDetailView.hideProgress();
+            mIVipDetailView.onFailure(AiniApplication.getInstance().getAiniApplicationContext().getString(R.string.check_input_tip), null);
         }
     }
 
