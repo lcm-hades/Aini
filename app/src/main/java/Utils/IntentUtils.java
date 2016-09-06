@@ -102,6 +102,18 @@ public class IntentUtils {
             activity.finish();
         }
     }
+
+    public static void skipResult(Activity activity, Class<? extends Activity> cls, String key, Serializable value, String key1, int value1, boolean finish, int requestCode) {
+        Intent intent = new Intent();
+        intent.putExtra(key, value);
+        intent.putExtra(key1, value1);
+        intent.setClass(activity, cls);
+        activity.startActivityForResult(intent, requestCode);
+        if (finish) {
+            activity.finish();
+        }
+    }
+
     public static void skipResult(Activity activity, Class<? extends Activity> cls, String key, String value, String key1, String value1, boolean finish, int requestCode) {
         Intent intent = new Intent();
         intent.putExtra(key, value);
@@ -121,5 +133,12 @@ public class IntentUtils {
         if (finish) {
             activity.finish();
         }
+    }
+
+    public static void finishResult(Activity ac, int resultCode, String key, Serializable value){
+        Intent intent = new Intent();
+        intent.putExtra(key, value);
+        ac.setResult(resultCode, intent);
+        ac.finish();
     }
 }

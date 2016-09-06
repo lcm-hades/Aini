@@ -1,5 +1,6 @@
 package com.hades.aini.vip.widget;
 
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -87,16 +88,26 @@ public class VipFragmet extends BaseFragment implements IVipLoadView, VipFragAda
     @Override
     public void onItemClick(View v, int positin) {
         VipInfoBean vip = mVipBeanList.get(positin);
-        IntentUtils.skip(getActivity(), VipDetailActivity.class, DATA, vip, Source, Update,  false);
+        IntentUtils.skipResult(getActivity(), VipDetailActivity.class, DATA, vip, Source, Update,  false, Update);
     }
 
     @Override
     protected void onRightButtonClick(View v) {
-        IntentUtils.skip(getActivity(), VipDetailActivity.class, Source, Insert,  false);
+        IntentUtils.skipResult(getActivity(), VipDetailActivity.class, Source, Insert, false, Insert);
     }
 
     @Override
     public void onRefresh() {
         mPresnter.loadVipInfo();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Update && resultCode == Update + 1){
+
+        }else if (requestCode == Insert && resultCode == Insert + 1){
+
+        }
     }
 }

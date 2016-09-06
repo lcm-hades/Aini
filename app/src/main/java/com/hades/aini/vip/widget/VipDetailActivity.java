@@ -1,5 +1,6 @@
 package com.hades.aini.vip.widget;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import com.hades.aini.vip.presenter.VipDetailPresenter;
 import com.hades.aini.vip.presenter.VipDetailPresenterImpl;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+
+import Utils.IntentUtils;
 
 public class VipDetailActivity extends BaseActivity implements IVipDetailView{
 
@@ -36,15 +39,26 @@ public class VipDetailActivity extends BaseActivity implements IVipDetailView{
     protected void init() {
         setBody(R.layout.ac_vip_detail_layout);
         mSource = (int) getIntent().getSerializableExtra(VipFragmet.Source);
+
         if(mSource == VipFragmet.Update){
             mVipInfoBean = (VipInfoBean) getIntent().getSerializableExtra(VipFragmet.DATA);
-            setUI(mVipInfoBean);
+            setUpdateUI(mVipInfoBean);
+        }else {
+            setInsertUI();
         }
         vipDetailPresenter = new VipDetailPresenterImpl(this);
     }
 
-    private void setUI(VipInfoBean vipInfoBean) {
+    private void setInsertUI() {
+        setTopTitle(R.string.add_vip_tip);
 
+    }
+
+    private void setUpdateUI(VipInfoBean vipInfoBean) {
+        setTopTitle(R.string.alter_tip);
+        vip_add_btn.setText(R.string.alter_tip);
+        vip_name.setText(vipInfoBean.getName());
+        vip_tel.setText(vipInfoBean.getTel());
     }
 
     @OnClick(R.id.vip_add_btn)
@@ -58,12 +72,12 @@ public class VipDetailActivity extends BaseActivity implements IVipDetailView{
 
     @Override
     public void insert(VipInfoBean vipInfoBean) {
-
+        IntentUtils.finishResult(this, 0, "data", vipInfoBean);
     }
 
     @Override
     public void update(VipInfoBean vipInfoBean) {
-
+        IntentUtils.finishResult(this, 0, "data", vipInfoBean);
     }
 
     @Override
