@@ -1,11 +1,14 @@
 package com.hades.aini.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.hades.aini.R;
+import com.hades.aini.vip.widget.VipFragmet;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -64,4 +67,5 @@ public class MainActivity extends FragmentActivity implements HBottomTabBar.HBot
         curIndex = index;
         helper.open(this, curIndex);
     }
+
 }

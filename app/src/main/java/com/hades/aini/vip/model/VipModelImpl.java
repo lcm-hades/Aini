@@ -20,6 +20,9 @@ import Utils.TimeUtils;
  * Created by Hades on 2016/8/30.
  */
 public class VipModelImpl implements VipModel {
+    public static final int INSERT = 0;
+    public static final int UPDATE = 1;
+
     AiniDatabaseHelper dbHelper;
     private OnLoadVipInfoListener listener;
 
@@ -51,7 +54,7 @@ public class VipModelImpl implements VipModel {
             Cursor cursor = db.rawQuery(sq, null);
             cursor.moveToFirst();
             vip.setId(cursor.getInt(0));
-            listener.onSuccess(vip);
+            listener.onSuccess(vip, INSERT);
 
         }catch (Exception e){
             if (this.listener != null){
@@ -65,14 +68,15 @@ public class VipModelImpl implements VipModel {
     }
 
     @Override
-    public synchronized void updateVipInfo(int id) {
+    public synchronized void updateVipInfo(VipInfoBean vipInfoBean, OnVipInfoChangeListener listener) {
         SQLiteDatabase db = null;
         try {
             db = dbHelper.getWritableDatabase();
-            String sql = "update * where id = ?";
-            db.execSQL(sql, new Object[]{id});
+            String sql = "UPDATE vip_info SET name = ?, tel = ? WHERE id = ?";
+            db.execSQL(sql, new Object[]{vipInfoBean.getName(), vipInfoBean.getTel(), vipInfoBean.getId()});
+            listener.onSuccess(vipInfoBean, UPDATE);
         }catch (Exception e){
-
+            listener.onFailure(e.getMessage(), e);
         }finally {
             if (db != null){
                 db.close();
@@ -141,7 +145,7 @@ public class VipModelImpl implements VipModel {
     }
 
     public interface OnVipInfoChangeListener{
-        void onSuccess(VipInfoBean vip);
+        void onSuccess(VipInfoBean vip, int type);
         void onFailure(String msg, Exception e);
     }
 }

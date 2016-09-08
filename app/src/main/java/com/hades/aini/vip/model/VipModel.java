@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface VipModel {
     void insertVipInfo(VipInfoBean vip, VipModelImpl.OnVipInfoChangeListener listener);
-    void updateVipInfo(int id);
+    void updateVipInfo(VipInfoBean vipInfoBean, VipModelImpl.OnVipInfoChangeListener listener);
     void deleteVipInfo(int id);
     void getVipInfoList(VipModelImpl.OnLoadVipInfoListener listener);
     boolean isExist(String tel);

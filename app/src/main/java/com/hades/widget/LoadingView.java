@@ -3,6 +3,8 @@ package com.hades.widget;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -35,5 +37,12 @@ public class LoadingView extends ImageView {
 
         AnimationDrawable animationDrawable = (AnimationDrawable) getBackground();
         animationDrawable.start();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        Log.i("test", "dddddddddddddddddddddddddd");
+        return super.onTouchEvent(event);
     }
 }

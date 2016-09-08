@@ -2,6 +2,7 @@ package Utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 
 import java.io.Serializable;
 
@@ -111,6 +112,17 @@ public class IntentUtils {
         activity.startActivityForResult(intent, requestCode);
         if (finish) {
             activity.finish();
+        }
+    }
+
+    public static void skipResult(Fragment fragment, Class<? extends Activity> cls, String key, Serializable value, String key1, int value1, boolean finish, int requestCode) {
+        Intent intent = new Intent();
+        intent.putExtra(key, value);
+        intent.putExtra(key1, value1);
+        intent.setClass(fragment.getActivity(), cls);
+        fragment.startActivityForResult(intent, requestCode);
+        if (finish) {
+            fragment.getActivity().finish();
         }
     }
 

@@ -32,6 +32,7 @@ public class VipFragmet extends BaseFragment implements IVipLoadView, VipFragAda
     private RecyclerView recyclerView_rv;
 
     private List<VipInfoBean> mVipBeanList = new ArrayList<>();
+    private VipFragAdapter adt;
 
     public static final String Source = "source";
     public static final int Update = 0x110;
@@ -39,7 +40,9 @@ public class VipFragmet extends BaseFragment implements IVipLoadView, VipFragAda
 
     public static final String DATA = "data";
 
-    VipLoadPresenterImpl mPresnter;
+    private VipLoadPresenterImpl mPresnter;
+
+    private int mSelectIndex = -1;
 
     @Override
     protected void init() {
@@ -69,7 +72,7 @@ public class VipFragmet extends BaseFragment implements IVipLoadView, VipFragAda
         }
         mVipBeanList.clear();
         mVipBeanList.addAll(list);
-        VipFragAdapter adt = new VipFragAdapter(getActivity(), list);
+        adt = new VipFragAdapter(getActivity(), list);
         adt.setOnVipFragAdapterItemClickLitsener(this);
         recyclerView_rv.setAdapter(adt);
     }
@@ -87,8 +90,9 @@ public class VipFragmet extends BaseFragment implements IVipLoadView, VipFragAda
 
     @Override
     public void onItemClick(View v, int positin) {
+        mSelectIndex = positin;
         VipInfoBean vip = mVipBeanList.get(positin);
-        IntentUtils.skipResult(getActivity(), VipDetailActivity.class, DATA, vip, Source, Update,  false, Update);
+        IntentUtils.skipResult(this, VipDetailActivity.class, DATA, vip, Source, Update, false, Update);
     }
 
     @Override
@@ -105,7 +109,13 @@ public class VipFragmet extends BaseFragment implements IVipLoadView, VipFragAda
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Update && resultCode == Update + 1){
-
+            if (mSelectIndex != -1){
+                VipInfoBean old_vip = mVipBeanList.get(mSelectIndex);
+                VipInfoBean new_vip = (VipInfoBean) data.getSerializableExtra(VipDetailActivity.RESULT_KEY);
+                old_vip.setTel(new_vip.getTel());
+                old_vip.setName(new_vip.getName());
+                adt.notifyDataSetChanged();
+            }
         }else if (requestCode == Insert && resultCode == Insert + 1){
 
         }

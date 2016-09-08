@@ -20,6 +20,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import Utils.IntentUtils;
 
 public class VipDetailActivity extends BaseActivity implements IVipDetailView{
+    public static final String RESULT_KEY = "data";
 
     @ViewInject(R.id.vip_name)
     private EditText vip_name;
@@ -31,6 +32,7 @@ public class VipDetailActivity extends BaseActivity implements IVipDetailView{
     private Button vip_add_btn;
 
     private int mSource;
+
     private VipInfoBean mVipInfoBean;
 
     private VipDetailPresenter  vipDetailPresenter;
@@ -66,18 +68,20 @@ public class VipDetailActivity extends BaseActivity implements IVipDetailView{
         if(mSource == VipFragmet.Insert){
             vipDetailPresenter.addNewVip(vip_name.getText().toString(), vip_tel.getText().toString());
         }else if (mSource == VipFragmet.Update){
-            vipDetailPresenter.updateVip(mVipInfoBean.getId());
+            mVipInfoBean.setName(vip_name.getText().toString());
+            mVipInfoBean.setTel(vip_tel.getText().toString());
+            vipDetailPresenter.updateVip(mVipInfoBean);
         }
     }
 
     @Override
     public void insert(VipInfoBean vipInfoBean) {
-        IntentUtils.finishResult(this, 0, "data", vipInfoBean);
+        IntentUtils.finishResult(this, VipFragmet.Insert + 1, RESULT_KEY, vipInfoBean);
     }
 
     @Override
     public void update(VipInfoBean vipInfoBean) {
-        IntentUtils.finishResult(this, 0, "data", vipInfoBean);
+        IntentUtils.finishResult(this, VipFragmet.Update + 1, RESULT_KEY, vipInfoBean);
     }
 
     @Override

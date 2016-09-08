@@ -36,15 +36,19 @@ public class VipDetailPresenterImpl implements VipDetailPresenter, VipModelImpl.
     }
 
     @Override
-    public void updateVip(int id) {
+    public void updateVip(VipInfoBean vip) {
         mIVipDetailView.showProgress();
-        vipModel.updateVipInfo(id);
+        vipModel.updateVipInfo(vip, this);
     }
 
     @Override
-    public void onSuccess(VipInfoBean vip) {
+    public void onSuccess(VipInfoBean vip, int type) {
         mIVipDetailView.hideProgress();
-        mIVipDetailView.insert(vip);
+        if (type == VipModelImpl.INSERT){
+            mIVipDetailView.insert(vip);
+        }else if (type == VipModelImpl.UPDATE){
+            mIVipDetailView.update(vip);
+        }
     }
 
     @Override
